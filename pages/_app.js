@@ -1,7 +1,8 @@
-import '../styles/globals.scss'
+//import '../styles/globals.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function MyApp({ Component, pageProps }) {
+function Triplan({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
 
-export default MyApp
+export default Triplan
