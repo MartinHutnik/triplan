@@ -1,0 +1,15 @@
+html,
+body {
+  font-family: 'Open Sans';
+}
+
+#app-wrapper {
+  display: flex;
+  height: 100vh;
+
+  .btn {
+    > span {
+      position: absolute;
+    }
+  }
+}

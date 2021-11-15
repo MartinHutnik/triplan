@@ -1,0 +1,19 @@
+.yellow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: #000;
+  border-radius: 10px;
+  border-color: #F8D964;
+  background-color: #F8D964;
+
+  &:hover {
+    color: #000;
+    border-color: #FEC527;
+    background-color: #FEC527;
+  }
+}

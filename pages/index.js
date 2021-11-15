@@ -1,21 +1,40 @@
-import React from 'react'
+import { Fragment } from 'react'
 import Head from 'next/head'
 
-export default function Home() {
+import Navigation from '../components/Navigation'
+import MainContent from '../components/MainContent'
+import Sidebar from '../components/Sidebar'
+
+export default function Home(data) {
   return (
-    <React.Fragment>
+    <Fragment>
       <Head>
-        <title>Triplan add</title>
-        <meta name="description" content="Create your trip" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Triplan - Your trips</title>
+        <meta name='description' content='Create your trip' />
       </Head>
-
-      <main>
-
-      </main>
-
-      <footer>
-      </footer>
-    </React.Fragment>
+      <div id='app-wrapper'>
+        <Navigation />
+        <MainContent
+          countries={data.countries}
+        />
+        <Sidebar />
+      </div>
+    </Fragment>
   )
+}
+
+export async function getStaticProps() {
+
+  const request = await fetch('https://task-devel.cleevio-vercel.vercel.app/api/country', {
+    headers: new Headers({
+      'Authorization': `Bearer ${process.env.TRIPS_APP_TOKEN}`,
+    }),
+  })
+
+  const countries = await request.json()
+
+  return {
+    props: { countries },
+  }
+
 }
