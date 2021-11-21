@@ -1,4 +1,14 @@
 .content {
   display: flex;
+  flex-direction: column;
+  padding: 40px;
   width: 60%;
+
+  h2 {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    font-size: 24px;
+    line-height: 33px;
+    border-bottom: 1px #F1F1F2 solid;
+  }
 }
