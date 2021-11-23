@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 
+import TripForm from '../../components/TripForm'
 import Navigation from '../../components/Navigation'
 import Sidebar from '../../components/Sidebar'
 
@@ -17,6 +18,7 @@ export default function Trips(data) {
         <Navigation />
         <main className={styles.content}>
           <h2>Create new trip index file</h2>
+          <TripForm />
         </main>
         <Sidebar />
       </div>

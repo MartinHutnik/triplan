@@ -1,11 +1,22 @@
+@import 'variables';
+
 html,
 body {
   font-family: 'Open Sans';
 }
 
+a {
+  color: $carbon;
+  text-decoration: none;
+
+  &:hover {
+    color: $carbon;
+  }
+}
+
 #app-wrapper {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   .btn {
     > span {

@@ -6,9 +6,9 @@ import styles from '../styles/Navigation.module.scss'
 export default function Navigation() {
   return (
     <nav className={styles.navigation}>
-      <div className={styles.logo}>
+      <Link href='/'><a className={styles.logo}>
         <Image src='/cleevio.svg' alt='Cleevio logo' width={134} height={38}/>
-      </div>
+      </a></Link>
       <Link href='/trips'><a>
         <CustomButton
           color='yellow'

@@ -1,19 +1,22 @@
+@import 'variables';
+
 .yellow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 11px 16px 11px 20px;
+  width: 100%;
   font-size: 14px;
   font-weight: 600;
   text-align: left;
-  color: #000;
+  color: $carbon;
   border-radius: 10px;
-  border-color: #F8D964;
-  background-color: #F8D964;
+  border-color: $yellow;
+  background-color: $yellow;
 
   &:hover {
     color: #000;
-    border-color: #FEC527;
-    background-color: #FEC527;
+    border-color: $yellowDarker;
+    background-color: $yellowDarker;
   }
 }
