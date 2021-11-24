@@ -11,7 +11,6 @@ const sidebarParagraphs = [
 ]
 
 export default function Home(data) {
-  console.log('data =', data)
   return (
     <Fragment>
       <Head>

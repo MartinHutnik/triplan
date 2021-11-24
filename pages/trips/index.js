@@ -17,11 +17,54 @@ export default function Trips(data) {
       <div id='app-wrapper'>
         <Navigation />
         <main className={styles.content}>
-          <h2>Create new trip index file</h2>
-          <TripForm />
+          <h2>New trip</h2>
+          <TripForm
+            countries={data.countries}
+          />
         </main>
         <Sidebar />
       </div>
     </Fragment>
   )
+}
+
+export async function getStaticProps() {
+
+  const urls = [
+    'https://task-devel.cleevio-vercel.vercel.app/api/country',
+    //'https://task-devel.cleevio-vercel.vercel.app/api/trip'
+  ]
+
+  const header = new Headers({
+    'Authorization': `Bearer ${process.env.TRIPS_APP_TOKEN}`,
+  })
+
+  const countries = await Promise.all(urls.map(async url => {
+    const response = await fetch(url, {headers: header});
+    return response.json();
+  }));
+
+  /*
+  const request = await fetch('https://task-devel.cleevio-vercel.vercel.app/api/country', {
+    headers: new Headers({
+      'Authorization': `Bearer ${process.env.TRIPS_APP_TOKEN}`,
+    }),
+  })
+
+  const countries = await request.json()
+  */
+
+  /*
+  return {
+    props: {
+      locale: locale,
+      footer: footer
+    }
+  }
+  */
+
+  return {
+    props: { countries },
+  }
+
 }

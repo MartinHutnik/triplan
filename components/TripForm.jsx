@@ -3,169 +3,148 @@ import {
   Button,
   Form,
   FormGroup,
-  FormText,
   Input,
   Label
 } from 'reactstrap'
 
-export default function TripForm(props) {
-  return (
-    <Form>
-      <FormGroup>
-      <Select
-      id='countries-select'
-      instanceId='countries-select'
-      options={props.countries}
-    />
-      </FormGroup>
-  <FormGroup>
-    <Label for="exampleEmail">
-      Email
-    </Label>
-    <Input
-      id="exampleEmail"
-      name="email"
-      placeholder="with a placeholder"
-      type="email"
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="examplePassword">
-      Password
-    </Label>
-    <Input
-      id="examplePassword"
-      name="password"
-      placeholder="password placeholder"
-      type="password"
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="exampleSelect">
-      Select
-    </Label>
-    <Input
-      id="exampleSelect"
-      name="select"
-      type="select"
-    >
-      <option>
-        1
-      </option>
-      <option>
-        2
-      </option>
-      <option>
-        3
-      </option>
-      <option>
-        4
-      </option>
-      <option>
-        5
-      </option>
-    </Input>
-  </FormGroup>
-  <FormGroup>
-    <Label for="exampleSelectMulti">
-      Select Multiple
-    </Label>
-    <Input
-      id="exampleSelectMulti"
-      multiple
-      name="selectMulti"
-      type="select"
-    >
-      <option>
-        1
-      </option>
-      <option>
-        2
-      </option>
-      <option>
-        3
-      </option>
-      <option>
-        4
-      </option>
-      <option>
-        5
-      </option>
-    </Input>
-  </FormGroup>
-  <FormGroup>
-    <Label for="exampleText">
-      Text Area
-    </Label>
-    <Input
-      id="exampleText"
-      name="text"
-      type="textarea"
-    />
-  </FormGroup>
-  <FormGroup>
-    <Label for="exampleFile">
-      File
-    </Label>
-    <Input
-      id="exampleFile"
-      name="file"
-      type="file"
-    />
-    <FormText>
-      This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.
-    </FormText>
-  </FormGroup>
-  <FormGroup tag="fieldset">
-    <legend>
-      Radio Buttons
-    </legend>
-    <FormGroup check>
-      <Input
-        name="radio1"
-        type="radio"
-      />
-      {' '}
-      <Label check>
-        Option one is this and that—be sure to include why it's great
-      </Label>
-    </FormGroup>
-    <FormGroup check>
-      <Input
-        name="radio1"
-        type="radio"
-      />
-      {' '}
-      <Label check>
-        Option two can be something else and selecting it will deselect option one
-      </Label>
-    </FormGroup>
-    <FormGroup
-      check
-      disabled
-    >
-      <Input
-        disabled
-        name="radio1"
-        type="radio"
-      />
-      {' '}
-      <Label check>
-        Option three is disabled
-      </Label>
-    </FormGroup>
-  </FormGroup>
-  <FormGroup check>
-    <Input type="checkbox" />
-    {' '}
-    <Label check>
-      Check me out
-    </Label>
-  </FormGroup>
-  <Button>
-    Submit
-  </Button>
-</Form>
+import styles from '../styles/TripForm.module.scss'
 
+export default function TripForm(props) {
+
+  const countries = props.countries[0]
+
+  return (
+    <Form className={styles.form}>
+
+      <FormGroup tag='fieldset'>
+        <FormGroup>
+          <Label for='countries-select'>
+            Where do you want to go
+          </Label>
+          <Select
+            id='countries-select'
+            instanceId='countries-select'
+            options={countries}
+            placeholder='Select country'
+          />
+          </FormGroup>
+      </FormGroup>
+
+      <FormGroup tag='fieldset'>
+        <FormGroup>
+          <Label for='start-date'>
+            Start date
+          </Label>
+          <Input
+            id='start-date'
+            name='start-date'
+            placeholder='dd.mm.year'
+            type='date'
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='end-date'>
+            End date
+          </Label>
+          <Input
+            id='end-date'
+            name='end-date'
+            placeholder='dd.mm.year'
+            type='date'
+          />
+        </FormGroup>
+      </FormGroup>
+
+      <FormGroup tag='fieldset'>
+        <FormGroup>
+          <Label for='company-name'>
+            Company name
+          </Label>
+          <Input
+            id='company-name'
+            name='company-name'
+            placeholder='Type here...'
+            type='text'
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='city'>
+            City
+          </Label>
+          <Input
+            id='city'
+            name='city'
+            placeholder='Type here...'
+            type='text'
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='street'>
+            Street
+          </Label>
+          <Input
+            id='street'
+            name='street'
+            placeholder='Type here...'
+            type='text'
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='street-number'>
+            Street number
+          </Label>
+          <Input
+            id='street-number'
+            name='street-number'
+            placeholder='Type here...'
+            type='text'
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for='zip-code'>
+            Zip code
+          </Label>
+          <Input
+            id='zip-code'
+            name='zip-code'
+            placeholder='Type here...'
+            type='text'
+          />
+        </FormGroup>
+      </FormGroup>
+
+      <FormGroup tag='fieldset'>
+        <FormGroup>
+          <Label>
+            Have you been recently tested for COVID-19?
+          </Label>
+        </FormGroup>
+        <FormGroup check inline>
+          <Input
+            name='covid-check'
+            type='radio'
+          />
+          {' '}
+          <Label check>
+            Yes
+          </Label>
+        </FormGroup>
+        <FormGroup check inline>
+          <Input
+            name='covid-check'
+            type='radio'
+          />
+          {' '}
+          <Label check>
+            No
+          </Label>
+        </FormGroup>
+      </FormGroup>
+
+      <Button>
+        Submit
+      </Button>
+
+    </Form>
   )
 }

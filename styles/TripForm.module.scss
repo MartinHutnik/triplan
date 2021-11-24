@@ -1,0 +1,16 @@
+@import 'variables';
+
+.form {
+  width: 100%;
+  align-self: center;
+
+  fieldset {
+    padding: 20px;
+    background-color: $cool-gray;
+    border-radius: 10px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 500px;
+  }
+}
