@@ -3,12 +3,20 @@ import Image from 'next/image'
 import styles from '../styles/Button.module.scss'
 
 export default function CustomButton(props) {
+
+  const classesList = props.styles.map(style => styles[style]).join(' ')
+
   return (
     <Button
-      className={styles[props.color]}
+      className={classesList}
     >
       {props.text}
-      <Image src='/icons/plus.svg' alt='plus sign' width={16} height={16}/>
+      <Image
+        src={`/icons/${props.imageName}.svg`}
+        alt={`${props.Name} sign`}
+        width={props.imageWidth}
+        height={props.imageHeight}
+      />
     </Button>
   )
 }

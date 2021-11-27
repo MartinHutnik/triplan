@@ -1,23 +1,26 @@
 import Select from 'react-select'
 import {
-  Button,
   Form,
   FormGroup,
   Input,
   Label
 } from 'reactstrap'
+import CustomButton from './CustomButton'
 
 import styles from '../styles/TripForm.module.scss'
+import { useState } from 'react'
 
 export default function TripForm(props) {
 
   const countries = props.countries[0]
 
+  const [country, setCountry] = useState({value: '', label: ''});
+
   return (
     <Form className={styles.form}>
 
       <FormGroup tag='fieldset'>
-        <FormGroup>
+        <FormGroup className='position-relative'>
           <Label for='countries-select'>
             Where do you want to go
           </Label>
@@ -25,9 +28,21 @@ export default function TripForm(props) {
             id='countries-select'
             instanceId='countries-select'
             options={countries}
+            onChange={(option) => setCountry(option)}
             placeholder='Select country'
           />
-          </FormGroup>
+          <Input
+            id='countries-input'
+            name='countries-input'
+            className={styles.selectValidation} 
+            type='text'
+            value={country.label}
+            onChange={() => {}}
+            tabIndex={-1}
+            autoComplete='off'
+            required='required'
+          />
+        </FormGroup>
       </FormGroup>
 
       <FormGroup tag='fieldset'>
@@ -38,8 +53,10 @@ export default function TripForm(props) {
           <Input
             id='start-date'
             name='start-date'
-            placeholder='dd.mm.year'
+            placeholder='DD/MM/YYYY'
             type='date'
+            pattern="\d{4}-\d{2}-\d{2}"
+            required='required'
           />
         </FormGroup>
         <FormGroup>
@@ -51,6 +68,7 @@ export default function TripForm(props) {
             name='end-date'
             placeholder='dd.mm.year'
             type='date'
+            required='required'
           />
         </FormGroup>
       </FormGroup>
@@ -65,6 +83,7 @@ export default function TripForm(props) {
             name='company-name'
             placeholder='Type here...'
             type='text'
+            required='required'
           />
         </FormGroup>
         <FormGroup>
@@ -76,6 +95,7 @@ export default function TripForm(props) {
             name='city'
             placeholder='Type here...'
             type='text'
+            required='required'
           />
         </FormGroup>
         <FormGroup>
@@ -87,6 +107,7 @@ export default function TripForm(props) {
             name='street'
             placeholder='Type here...'
             type='text'
+            required='required'
           />
         </FormGroup>
         <FormGroup>
@@ -98,6 +119,7 @@ export default function TripForm(props) {
             name='street-number'
             placeholder='Type here...'
             type='text'
+            required='required'
           />
         </FormGroup>
         <FormGroup>
@@ -109,6 +131,7 @@ export default function TripForm(props) {
             name='zip-code'
             placeholder='Type here...'
             type='text'
+            required='required'
           />
         </FormGroup>
       </FormGroup>
@@ -141,9 +164,13 @@ export default function TripForm(props) {
         </FormGroup>
       </FormGroup>
 
-      <Button>
-        Submit
-      </Button>
+      <CustomButton
+        styles={['yellow', 'save']}
+        text='Save'
+        imageName='tick'
+        imageWidth={16}
+        imageHeight={11}
+      />
 
     </Form>
   )

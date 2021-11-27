@@ -1,6 +1,8 @@
 @import 'variables';
 
 .form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-self: center;
 
@@ -8,6 +10,14 @@
     padding: 20px;
     background-color: $cool-gray;
     border-radius: 10px;
+
+    .selectValidation {
+      background: transparent;
+      color: transparent;
+      position: absolute;
+      top: 0;
+      z-index: -1;
+    }
   }
 
   @media (min-width: 1200px) {

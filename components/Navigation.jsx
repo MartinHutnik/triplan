@@ -11,8 +11,11 @@ export default function Navigation() {
       </a></Link>
       <Link href='/trips'><a>
         <CustomButton
-          color='yellow'
+          styles={['yellow', 'plus']}
           text='New Trip'
+          imageName='plus'
+          imageWidth={16}
+          imageHeight={16}
         />
       </a></Link>
       <Link href='/'><a>
