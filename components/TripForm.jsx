@@ -1,3 +1,4 @@
+import React from 'react'
 import Select from 'react-select'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,9 +16,17 @@ import { useState } from 'react'
 export default function TripForm(props) {
 
   const countries = props.countries[0]
-  const [startDate, setStartDate] = useState(new Date());
-  //const [startDate, setStartDate] = useState(null);
   const [country, setCountry] = useState({value: '', label: ''});
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const DateInput = React.forwardRef((props, ref) => (
+    <Input
+      {...props}
+      ref={ref}
+    />
+  ))
 
   return (
     <Form className={styles.form}>
@@ -55,9 +64,14 @@ export default function TripForm(props) {
           </Label>
           <DatePicker
             id='start-date'
-            selected={startDate}
+            name='start-date'
+            type='text'
+            required='required'
             placeholderText='dd.mm.yyyy'
+            selected={startDate}
+            minDate={new Date()}
             dateFormat='dd.MM.yyyy'
+            customInput={<DateInput />}
             onChange={(date) => setStartDate(date)}
           />
         </FormGroup>
@@ -65,12 +79,18 @@ export default function TripForm(props) {
           <Label for='end-date'>
             End date
           </Label>
-          <Input
+          <DatePicker
             id='end-date'
             name='end-date'
-            placeholder='dd.mm.year'
-            type='date'
+            type='text'
             required='required'
+            placeholderText='dd.mm.yyyy'
+            selected={endDate}
+            minDate={startDate}
+            dateFormat='dd.MM.yyyy'
+            customInput={<DateInput />}
+            onChange={(date) => setEndDate(date)}
+            disabled={!startDate}
           />
         </FormGroup>
       </FormGroup>
