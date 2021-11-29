@@ -1,4 +1,6 @@
 import Select from 'react-select'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 import {
   Form,
   FormGroup,
@@ -13,7 +15,8 @@ import { useState } from 'react'
 export default function TripForm(props) {
 
   const countries = props.countries[0]
-
+  const [startDate, setStartDate] = useState(new Date());
+  //const [startDate, setStartDate] = useState(null);
   const [country, setCountry] = useState({value: '', label: ''});
 
   return (
@@ -50,13 +53,12 @@ export default function TripForm(props) {
           <Label for='start-date'>
             Start date
           </Label>
-          <Input
+          <DatePicker
             id='start-date'
-            name='start-date'
-            placeholder='DD/MM/YYYY'
-            type='date'
-            pattern="\d{4}-\d{2}-\d{2}"
-            required='required'
+            selected={startDate}
+            placeholderText='dd.mm.yyyy'
+            dateFormat='dd.MM.yyyy'
+            onChange={(date) => setStartDate(date)}
           />
         </FormGroup>
         <FormGroup>
