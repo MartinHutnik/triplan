@@ -11,6 +11,18 @@
     background-color: $cool-gray;
     border-radius: 10px;
 
+    &.covidTestQuestion {
+      margin-bottom: 0 !important;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &.covidTestAnswer {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: 1px $platinum solid;
+    }
+
     .selectValidation {
       background: transparent;
       color: transparent;

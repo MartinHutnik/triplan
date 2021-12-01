@@ -9,6 +9,7 @@ export default function CustomButton(props) {
   return (
     <Button
       className={classesList}
+      type={props.type ? props.type : 'button'}
     >
       {props.text}
       <Image
