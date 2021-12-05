@@ -16,13 +16,22 @@ import { useState } from 'react'
 export default function TripForm(props) {
 
   const countries = props.countries[0]
-  const [country, setCountry] = useState({value: '', label: ''});
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [covidTestDate, setCovidTestDate] = useState(null);
 
-  const [covidTestAnswer, setCovidTestAnswer] = useState('');
+  const [companyName, setCompanyName] = useState('');
+
+  const [address, setAddress] = useState({
+    'street': '',
+    'street_num': '',
+    'city': '',
+    'country': '',
+    'zip': ''
+  });
+
+  const [covid, setCovid] = useState('');
+  const [covidTestDate, setCovidTestDate] = useState(null);
 
   const DateInput = React.forwardRef((props, ref) => (
     <Input
@@ -31,13 +40,29 @@ export default function TripForm(props) {
     />
   ))
 
-  const onFormSubmit = data => console.log('data form =', data);
+  const changeHandler = (event, name = false) => {
+    if (name) {
+      const selectOption = event;
+      return setAddress({...address, [name]: selectOption.label})
+    }
+    return setAddress({...address, [event.target.name]: event.target.value})
+  }
 
-  console.log('country =', country)
-  console.log('startDate =', startDate ? startDate.toISOString().split('T')[0] : '')
-  console.log('endDate =', endDate ? endDate.toISOString().split('T')[0] : '')
-  console.log('covidTestDate =', covidTestDate)
-  console.log('covidTestAnswer =', covidTestAnswer)
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+
+    const body = {
+      'start_date': startDate ? startDate.toISOString().split('T')[0] : '',
+      'end_date': endDate ? endDate.toISOString().split('T')[0] : '',
+      'company_name': companyName,
+      'address': address,
+      'covid': covid,
+      'covid_test_date': covidTestDate ? covidTestDate.toISOString().split('T')[0] : ''
+    }
+
+    console.log('data form =', body);
+
+  }
 
   return (
     <Form className={styles.form} onSubmit={onFormSubmit}>
@@ -51,15 +76,16 @@ export default function TripForm(props) {
             id='countries-select'
             instanceId='countries-select'
             options={countries}
-            onChange={(option) => setCountry(option)}
+            name='country'
+            onChange={(option) => changeHandler(option, 'country')}
             placeholder='Select country'
           />
           <Input
             id='countries-input'
-            name='countries-input'
-            className={styles.selectValidation} 
+            name='countries_input'
+            className={styles.selectValidation}
             type='text'
-            value={country.label}
+            value={address.country}
             onChange={() => {}}
             tabIndex={-1}
             autoComplete='off'
@@ -75,7 +101,7 @@ export default function TripForm(props) {
           </Label>
           <DatePicker
             id='start-date'
-            name='start-date'
+            name='start_date'
             type='text'
             required='required'
             placeholderText='dd.mm.yyyy'
@@ -92,7 +118,7 @@ export default function TripForm(props) {
           </Label>
           <DatePicker
             id='end-date'
-            name='end-date'
+            name='end_date'
             type='text'
             required='required'
             placeholderText='dd.mm.yyyy'
@@ -113,9 +139,10 @@ export default function TripForm(props) {
           </Label>
           <Input
             id='company-name'
-            name='company-name'
+            name='company_name'
             placeholder='Type here...'
             type='text'
+            onChange={(event) => setCompanyName(event.target.value)}
             required='required'
           />
         </FormGroup>
@@ -128,6 +155,7 @@ export default function TripForm(props) {
             name='city'
             placeholder='Type here...'
             type='text'
+            onChange={changeHandler}
             required='required'
           />
         </FormGroup>
@@ -140,6 +168,7 @@ export default function TripForm(props) {
             name='street'
             placeholder='Type here...'
             type='text'
+            onChange={changeHandler}
             required='required'
           />
         </FormGroup>
@@ -148,10 +177,11 @@ export default function TripForm(props) {
             Street number
           </Label>
           <Input
-            id='street-number'
-            name='street-number'
+            id='street-num'
+            name='street_num'
             placeholder='Type here...'
             type='text'
+            onChange={changeHandler}
             required='required'
           />
         </FormGroup>
@@ -160,10 +190,11 @@ export default function TripForm(props) {
             Zip code
           </Label>
           <Input
-            id='zip-code'
-            name='zip-code'
+            id='zip'
+            name='zip'
             placeholder='Type here...'
             type='text'
+            onChange={changeHandler}
             required='required'
           />
         </FormGroup>
@@ -171,7 +202,7 @@ export default function TripForm(props) {
 
       <FormGroup
         tag='fieldset'
-        className={covidTestAnswer ? styles.covidTestQuestion : ''}
+        className={covid ? styles.covidTestQuestion : ''}
       >
         <FormGroup>
           <Label>
@@ -180,11 +211,11 @@ export default function TripForm(props) {
         </FormGroup>
         <FormGroup check inline>
           <Input
-            name='covid-check'
+            name='covid_check'
             type='radio'
             value='yes'
-            checked={covidTestAnswer}
-            onChange={() => setCovidTestAnswer(true)}
+            checked={covid}
+            onChange={() => setCovid(true)}
           />
           {' '}
           <Label check>
@@ -193,11 +224,11 @@ export default function TripForm(props) {
         </FormGroup>
         <FormGroup check inline>
           <Input
-            name='covid-check'
+            name='covid_check'
             type='radio'
             value='no'
-            checked={covidTestAnswer === false}
-            onChange={() => setCovidTestAnswer(false)}
+            checked={covid === false}
+            onChange={() => setCovid(false)}
           />
           {' '}
           <Label check>
@@ -207,8 +238,8 @@ export default function TripForm(props) {
       </FormGroup>
       <FormGroup
         tag='fieldset'
-        className={styles.covidTestAnswer}
-        hidden={!covidTestAnswer}
+        className={styles.covid}
+        hidden={!covid}
       >
         <FormGroup>
           <Label for='covid-test-date'>
@@ -216,16 +247,16 @@ export default function TripForm(props) {
           </Label>
           <DatePicker
             id='covid-test-date'
-            name='covid-test-date'
+            name='covid_test_date'
             type='text'
-            //required='required'
+            required={covid ? covid : 'required'}
             placeholderText='dd.mm.yyyy'
             selected={covidTestDate}
             maxDate={startDate}
             dateFormat='dd.MM.yyyy'
             customInput={<DateInput />}
             onChange={(date) => setCovidTestDate(date)}
-            //disabled={!startDate}
+            disabled={!covid}
           />
         </FormGroup>
       </FormGroup>
